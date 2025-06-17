@@ -159,12 +159,15 @@ class AdvancedImageToCharacterApp:
         
         # ChatGPTからの説明テキスト表示用フレーム
         self.description_frame = tk.Frame(self.root)
-        self.description_frame.pack(fill=tk.X, padx=20, pady=5)
-        
+        self.description_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=5)
+
         Label(self.description_frame, text="ChatGPTからの応答:").pack(anchor=tk.W)
-        
-        self.description_text = tk.Text(self.description_frame, height=4, wrap=tk.WORD)
-        self.description_text.pack(fill=tk.X, pady=5)
+
+        self.description_text = tk.Text(self.description_frame, wrap=tk.WORD)
+        scrollbar = tk.Scrollbar(self.description_frame, orient=tk.VERTICAL, command=self.description_text.yview)
+        self.description_text.config(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.description_text.pack(fill=tk.BOTH, expand=True, pady=5)
         self.description_text.config(state=tk.DISABLED)
         
         # ステータスバー
@@ -248,7 +251,7 @@ class AdvancedImageToCharacterApp:
             
             # ChatGPTに画像を送信して象形文字を生成
             response = self.client.chat.completions.create(
-                model="gpt-4-vision-preview",
+                model="gpt-4o",
                 messages=[
                     {
                         "role": "system",
