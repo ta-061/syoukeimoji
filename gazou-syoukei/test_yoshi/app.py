@@ -6,11 +6,7 @@ from flask import Flask, request, jsonify, render_template
 from openai import OpenAI
 
 # ── API キー ───────────────────────────────────────────
-keyfile = Path("api_key.json")
-api_key = os.getenv("OPENAI_API_KEY") or (
-    json.load(keyfile.open())["api_key"] if keyfile.exists() else None)
-if not api_key:
-    raise RuntimeError("OpenAI APIキーが見つかりません")
+api_key = "APIキーを入れてください"
 client = OpenAI(api_key=api_key)
 app = Flask(__name__)
 
